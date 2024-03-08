@@ -1,0 +1,18 @@
+{{- $optAlign := .Options | names | align }}
+{{- $cmdAlign := .SubCommands | names | align }}
+{{- $optTmpl := printf "-%%-%ds %%s" $optAlign  }}
+{{- $cmdTmpl := printf "%%-%ds %%s" $cmdAlign  }}
+Usage: {{ .PathToCMD }} [OPTIONS]{{ if .SubCommands | len  }} [COMMAND]{{ end }}
+
+{{ .Description }}
+
+Options:
+{{- range .Options }}
+  {{ printf $optTmpl .Name .Description }}
+{{- end }}
+{{ if .SubCommands | len }}
+Common Commands:
+{{- range .SubCommands }}
+  {{ printf $cmdTmpl .Name .Description  }}
+{{- end }}
+{{ end }}

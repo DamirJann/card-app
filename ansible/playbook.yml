@@ -1,0 +1,30 @@
+- hosts: servers
+  remote_user: root
+  vars:
+    bin_dir: "/app-bin"
+    proj_dir: "/app-proj"
+  tasks:
+    - name: install make
+      apt:
+        name: "{{ item }}"
+        update_cache: true
+      loop: [ "golang-go", "make" ]
+    - name: "create app bin directory"
+      file:
+        state: directory
+        path: "{{ bin_dir }}"
+    - name: "copy project"
+      copy:
+        src: "../"
+        dest: "{{ proj_dir }}"
+    - name: "build app"
+      make:
+        target: build
+        chdir: "{{ proj_dir }}"
+        params:
+          TAG: "{{ TAG }}"
+    - name: "copy app artefact"
+      copy:
+        src: "{{ proj_dir }}/app-{{ TAG }}"
+        dest: "{{ bin_dir }}/"
+        remote_src: true

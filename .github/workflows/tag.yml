@@ -1,0 +1,15 @@
+name: tag
+
+on:
+  workflow_dispatch
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - run: make -e TAG="$GITHUB_REF_NAME" deploy
+

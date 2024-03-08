@@ -1,0 +1,5 @@
+version: "v1.0.0"
+db:
+  host: "db"
+  user: "git-course"
+  password: "JvB9IUXIBSCxeu0KiTUKxkVfLG"
