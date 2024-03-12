@@ -50,15 +50,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	//dsn := fmt.Sprintf("host=%s user=%s password=%s database=default port=5432 sslmode=disable", cfg.DB.Host, cfg.DB.User, cfg.DB.Password)
-	//repository, err := repository.NewPostgres(dsn)
-	//if err != nil {
-	//	fmt.Println(fmt.Errorf(err.Error()))
-	//	os.Exit(1)
-	//}
+	dsn := fmt.Sprintf("host=%s user=%s password=%s database=default port=5432 sslmode=disable", cfg.DB.Host, cfg.DB.User, cfg.DB.Password)
+	repository, err := repository.NewPostgres(dsn)
+	if err != nil {
+		fmt.Println(fmt.Errorf(err.Error()))
+		os.Exit(1)
+	}
 
-	rootCMD := cmd.NewRoot(cfg.Version, repository.NullRepository{})
-	_, err := rootCMD.Init(os.Args[1:])
+	rootCMD := cmd.NewRoot(cfg.Version, repository)
+	_, err = rootCMD.Init(os.Args[1:])
 	if err != nil {
 		fmt.Println(fmt.Errorf("failed to parse command.\n%v", err))
 		os.Exit(1)

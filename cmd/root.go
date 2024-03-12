@@ -42,9 +42,9 @@ func NewRoot(version string, repository repository.Repository) Cmd {
 		baseCommand: newBaseCommand(
 			fs,
 			[]Cmd{
-				//NewAdd(repository, []string{rootName}),
-				//NewList(repository, []string{rootName}),
-				//NewRemove(repository, []string{rootName}),
+				NewAdd(repository, []string{rootName}),
+				NewList(repository, []string{rootName}),
+				NewRemove(repository, []string{rootName}),
 			},
 			[]string{},
 			"System for keeping cards with answers",
