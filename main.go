@@ -28,14 +28,14 @@ func (cfg *Config) Init() error {
 
 	}
 
-	//file, err = os.OpenFile("config/secret.yaml", 0, 0)
-	//if err != nil {
-	//	return fmt.Errorf("%v", err)
-	//}
-	//if err = yaml.NewDecoder(file).Decode(&cfg); err != nil {
-	//	return fmt.Errorf("failed to parse secret.yaml: %v", err)
-	//
-	//}
+	file, err = os.OpenFile("config/secret.yaml", 0, 0)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+	if err = yaml.NewDecoder(file).Decode(&cfg); err != nil {
+		return fmt.Errorf("failed to parse secret.yaml: %v", err)
+
+	}
 
 	if cfg.Version == "" {
 		return fmt.Errorf("app version is not set")
